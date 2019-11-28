@@ -26,6 +26,9 @@ public class Bugs implements Serializable {
   @Column(name = "TESTER_ID")
   private int testerId;
 
+  public Bugs() {
+  }
+
   /**
    * Bugs Constructor
    */

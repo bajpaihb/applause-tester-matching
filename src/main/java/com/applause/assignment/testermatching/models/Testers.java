@@ -52,6 +52,9 @@ public class Testers implements Serializable {
   @OneToMany(mappedBy = "testers", cascade = CascadeType.ALL)
   private List<Bugs> bugs;
 
+  public Testers() {
+  }
+
   /**
    * Constructor for Testers
    */
