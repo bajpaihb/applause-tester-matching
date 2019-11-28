@@ -22,31 +22,40 @@
 - Navigate to your browser and open your localhost: http://localhost:8080/applause/testers/experiences
 
 ### Walk Through Example 1:
-
+```
 * Query: 
-  * http://localhost:8080/applause/testers/experiences?country=ALL&device=iPhone%204
-* Output - 
-  * [{"Name":"Taybin Rutkin","Experience":66},{"Name":"Sean Wellington","Experience":28},{"Name":"Miguel Bautista","Experience":23},{"Name":"Mingquan Zheng","Experience":21}]
+  http://localhost:8080/applause/testers/experiences?country=ALL&device=iPhone%204
+  
+* Output:
+  [{"Name":"Taybin Rutkin","Experience":66},{"Name":"Sean Wellington","Experience":28},
+  {"Name":"Miguel Bautista","Experience":23},{"Name":"Mingquan Zheng","Experience":21}]
+  
+```
 
 
 ### Walk Through Example 2:
-
+```
 * Query: 
-  * http://localhost:8080/applause/testers/experiences?country=ALL&device=iPhone%204&device=iPhone%205
-* Output - 
-  * [{"Name":"Stanley Chen","Experience":110},{"Name":"Taybin Rutkin","Experience":66},{"Name":"Sean Wellington","Experience":58},{"Name":"Miguel Bautista","Experience":53},{"Name":"Leonard Sutton","Experience":32},{"Name":"Mingquan Zheng","Experience":21}]
-
+  http://localhost:8080/applause/testers/experiences?country=ALL&device=iPhone%204&device=iPhone%205
+  
+* Output:
+  [{"Name":"Stanley Chen","Experience":110},{"Name":"Taybin Rutkin","Experience":66},
+  {"Name":"Sean Wellington","Experience":58},{"Name":"Miguel Bautista","Experience":53},
+  {"Name":"Leonard Sutton","Experience":32},{"Name":"Mingquan Zheng","Experience":21}]
+```
 
 ### Walk Through Example 3:
-
+```
 * Query: 
-  * http://localhost:8080/applause/testers/experiences?country=US&device=ALL
-* Output - 
-  * [{"Name":"Taybin Rutkin","Experience":125},{"Name":"Miguel Bautista","Experience":114},{"Name":"Michael Lubavin","Experience":99}]
-
+  http://localhost:8080/applause/testers/experiences?country=US&device=ALL
+  
+* Output:
+  [{"Name":"Taybin Rutkin","Experience":125},{"Name":"Miguel Bautista","Experience":114},
+  {"Name":"Michael Lubavin","Experience":99}]
+```
 ### Future enhancements:
 
  - Add User Interface
- - Handle explicit mapping for /error
- - Handle case sentivity better
+ - Handle explicit mapping for/error
+ - Handle case sensitivity better
  
