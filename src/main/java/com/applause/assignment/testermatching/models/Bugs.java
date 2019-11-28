@@ -8,6 +8,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
 
+/**
+ * Entity object representing Bugs database table
+ */
 @Entity
 @Table(name = "BUGS")
 public class Bugs implements Serializable {
@@ -22,6 +25,17 @@ public class Bugs implements Serializable {
 
   @Column(name = "TESTER_ID")
   private int testerId;
+
+  /**
+   * Bugs Constructor
+   */
+  public Bugs(int bugId, int deviceId, int testerId,
+              Testers testers) {
+    this.bugId = bugId;
+    this.deviceId = deviceId;
+    this.testerId = testerId;
+    this.testers = testers;
+  }
 
   @ManyToOne()
   @JoinColumn(name = "TESTER_ID", referencedColumnName = "TESTER_ID", insertable = false, updatable = false)

@@ -6,6 +6,9 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
+/**
+ * Repository interface to query Testers database table
+ */
 public interface TesterRepository extends CrudRepository<Testers,Integer> {
   List<Testers> findAll();
   Testers findById(int testerid);

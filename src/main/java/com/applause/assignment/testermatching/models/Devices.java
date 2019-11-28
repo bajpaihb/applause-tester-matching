@@ -8,6 +8,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import java.io.Serializable;
 
+/**
+ * Entity object representing Devices database table
+ */
 @Entity
 @Table(name = "DEVICES")
 public class Devices implements Serializable {
@@ -32,5 +35,13 @@ public class Devices implements Serializable {
 
   public String getDescription() {
     return description;
+  }
+
+  public void setDeviceId(int deviceId) {
+    this.deviceId = deviceId;
+  }
+
+  public void setTesters(List<Testers> testers) {
+    this.testers = testers;
   }
 }

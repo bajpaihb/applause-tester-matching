@@ -6,6 +6,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
 
+/**
+ * Entity object representing Tester_Device database table
+ */
 @Entity
 @Table(name = "TESTER_DEVICE")
 public class TesterDevice implements Serializable {

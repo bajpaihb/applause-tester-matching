@@ -7,6 +7,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * Repository interface to query Bugs database table
+ */
 @Repository
 public interface BugsRepository extends CrudRepository<Bugs, Integer> {
   List<Bugs> findAll();

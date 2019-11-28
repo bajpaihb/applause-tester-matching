@@ -11,6 +11,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+/**
+ * Service class for generating and sorting tester experience
+ */
 @Component
 public class TesterExperienceService {
 
@@ -20,36 +23,48 @@ public class TesterExperienceService {
   @Autowired
   private ReputationLookUpService reputationLookUpService;
 
+  /**
+   * Serves data to end point applause/testers/experiences by calculating and sorting
+   * testers based on experiences/reputation
+   *
+   * @param countries List of Countries
+   * @param devices List of Devices
+   * @return Sorted list of TesterExperience based on reputations/experiences
+   */
   public List<TesterExperience> getTestersBySortedExperiences(List<String> countries,
-    List<String> devices) {
-
+                                                              List<String> devices) {
     Map<Testers, Integer> testerReputationMap = null;
     if (!countries.contains(ALL) && !devices.contains(ALL)) {
       testerReputationMap = reputationLookUpService
-        .getReputationByCountriesAndDevices(countries, devices);
+              .getReputationByCountriesAndDevices(countries, devices);
     } else if (!countries.contains(ALL) && devices.contains(ALL)) {
       testerReputationMap = reputationLookUpService.getReputationByCountries(countries);
     } else if (countries.contains(ALL) && !devices.contains(ALL)) {
       testerReputationMap = reputationLookUpService.getReputationByDevices(devices);
     } else if (countries.contains(ALL) && devices.contains(ALL)) {
       testerReputationMap = reputationLookUpService.getReputationForAll();
-    } else {
-      logger.debug("Invalid values supplied");
     }
     return generateSortedExperienceList(testerReputationMap);
   }
 
-
+  /**
+   * generate tester reputation DTO based on tester and reputation
+   */
   private TesterExperience generateTesterReputationDto(Testers testers, Integer reputation) {
+    logger.debug("Adding tester to the result map with name: {} and reputation: {}",
+            testers.getFirstName() + " " + testers.getLastName(), reputation);
     return new TesterExperience((testers.getFirstName() + " " + testers.getLastName()), reputation);
   }
 
+  /**
+   * generate sorted experience list from the tester reputation map based on
+   * tester reputation score.
+   */
   private List<TesterExperience> generateSortedExperienceList(
-    Map<Testers, Integer> testerReputationMap) {
+          Map<Testers, Integer> testerReputationMap) {
     return testerReputationMap.entrySet().stream()
-      .map(x -> generateTesterReputationDto(x.getKey(), x.getValue()))
-      .sorted(Comparator.comparingInt(TesterExperience::getTesterReputation)
-        .reversed()).collect(Collectors.toList());
+            .map(x -> generateTesterReputationDto(x.getKey(), x.getValue()))
+            .sorted(Comparator.comparingInt(TesterExperience::getTesterReputation)
+                    .reversed()).collect(Collectors.toList());
   }
-
 }

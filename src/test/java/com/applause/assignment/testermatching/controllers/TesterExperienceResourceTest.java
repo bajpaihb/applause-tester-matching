@@ -1,6 +1,8 @@
 package com.applause.assignment.testermatching.controllers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -33,21 +35,43 @@ public class TesterExperienceResourceTest {
 
   @BeforeEach
   public void setupTest() {
-    listOfCountries = new ArrayList<String>(Arrays.asList("US", "GB"));
-    listOfDevices = new ArrayList<String>(Arrays.asList("Pixel", "Iphone"));
+    listOfCountries = new ArrayList<String>();
+    listOfDevices = new ArrayList<String>();
+
     TesterExperience testerExperience = new TesterExperience(testerName, deviceId);
     MockitoAnnotations.initMocks(this);
     experiences = new ArrayList<TesterExperience>(Arrays.asList(testerExperience));
     when(service.getTestersBySortedExperiences(listOfCountries, listOfDevices))
-      .thenReturn(experiences);
+            .thenReturn(experiences);
   }
 
   @Test
   public void getTesterExperiencesTest() {
+    listOfCountries.add("US");
+    listOfDevices.add("i phone");
     ResponseEntity response = resource.getTesterExperiences(listOfCountries, listOfDevices);
     assertEquals(HttpStatus.OK, response.getStatusCode());
     assertEquals(experiences, response.getBody());
-
     verify(service).getTestersBySortedExperiences(listOfCountries, listOfDevices);
+  }
+
+  @Test
+  public void getTesterExperiencesEmptyCountryTest() {
+    listOfCountries = new ArrayList<String>();
+    listOfDevices = new ArrayList<String>(Arrays.asList("i Phone"));
+    ResponseEntity response = resource.getTesterExperiences(listOfCountries, listOfDevices);
+    assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+    assertEquals(response.getBody(), "Country can't be empty");
+    verify(service, times(0)).getTestersBySortedExperiences(anyList(), anyList());
+  }
+
+  @Test
+  public void getTesterExperiencesEmptyDeviceTest() {
+    listOfCountries = new ArrayList<String>(Arrays.asList("US"));
+    listOfDevices = new ArrayList<String>();
+    ResponseEntity response = resource.getTesterExperiences(listOfCountries, listOfDevices);
+    assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+    assertEquals(response.getBody(), "Devices can't be empty");
+    verify(service, times(0)).getTestersBySortedExperiences(anyList(), anyList());
   }
 }
